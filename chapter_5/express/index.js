@@ -4,6 +4,9 @@ import compression from 'compression'
 import { fileURLToPath } from 'url';
 import { dirname, sep } from 'path';
 
+import { helloRouter } from './routes/hello.js';
+import { currentURL } from './routes/currentURL.js';
+
 const
   __dirname = dirname(fileURLToPath( import.meta.url )) + sep,
   cfg = {
@@ -24,29 +27,26 @@ const app = express();
 app.disable('x-powered-by');
 
 // // use EJS templates
-// app.set('view engine', 'ejs');
-// app.set('views', cfg.dir.views );
-
-// log to console every req
-app.use( (req, res, next) => {
-  console.log(req.url);
-  next();
-})
+app.set('view engine', 'ejs');
+app.set('views', cfg.dir.views );
 
 // HTTP compression
 app.use( compression() );
 
-// serve static pages
+// serve static assets
 app.use(express.static( cfg.dir.static ));
 
-// serve /abdurasul response
-app.get("/abdurasul", (req, res) => {
-  res.send("Hello, Abdurasul!");
-});
+// serve params from hello path
+app.use('/hello', helloRouter)
 
-// 404 not found
+// serve url path
+app.use('/url', currentURL)
+
+
+// 404 page
 app.use( (req, res) => {
-  res.status(404).render(cfg.dir.notFound ,{title: 'Oups! Page not found'} )
+  console.dir(req.originalUrl);
+  res.status(404).render('message', { title: 'Oups! Page not Found (((...'})
 })
 
 app.listen(cfg.port, () => {
