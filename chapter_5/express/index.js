@@ -15,7 +15,8 @@ const
       root: __dirname,
       static: __dirname + "static" + sep,
       notFound: __dirname + "static" + sep + 'notFound.html',
-      views: __dirname + "views" + sep
+      views: __dirname + "views" + sep,
+      secondHome: __dirname + "secondStatic" + sep,
     }
   };
 
@@ -35,6 +36,8 @@ app.use( compression() );
 
 // serve static assets
 app.use(express.static( cfg.dir.static ));
+
+app.use('/secondhome', express.static( cfg.dir.secondHome ))
 
 // serve params from hello path
 app.use('/hello', helloRouter)

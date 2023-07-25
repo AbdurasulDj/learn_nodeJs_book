@@ -1,0 +1,19 @@
+{
+  "name": "express_get",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "formidable": "^3.5.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.29.3"
+  }
+}
